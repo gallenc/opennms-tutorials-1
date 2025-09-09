@@ -1,5 +1,4 @@
 ---
-version: '3'
 
 # using fixed ip addresses so opennms provisoning config works
 # to see all network use docker network ls
@@ -66,10 +65,12 @@ services:
       - ./container-fs/horizon/etc/conf.d/confd.toml:/etc/confd/confd.toml
     command: ["-s"]
     ports:
-      - "8101:8101/tcp"
-      - "8980:8980/tcp"
-      - "10162:1162/udp"
+      - "8101:8101/tcp"   # karaf ssh
+      - "8980:8980/tcp"   # web ui
+      - "10162:1162/udp"  # snmp trap
+      - "10514:10514/udp" # syslog
       - "61616:61616/tcp" # activemq
+      - "8990:8990" # grpc
       - "8001:8001" # JPDA debugging port
     healthcheck:
       test: [ "CMD", "curl", "-f", "-I", "http://localhost:8980/opennms/login.jsp" ]
