@@ -1,5 +1,5 @@
 # OpenNMS Tutorials
-
+(class 2023-2024 - Horizon 32.x examples)
 Git Repository of OpenNMS tutorial examples
 
 The repository contains a number of example projects, exercises and an area called [myPracticeCourseWork](../main/myPracticeCourseWork/) for you to create and store your own example work during the course. 
