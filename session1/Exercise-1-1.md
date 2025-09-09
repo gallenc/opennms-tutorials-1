@@ -6,7 +6,7 @@
 
 All of the examples in this set of tutorials use docker compose to create an OpenNMS system and also to simulate networks or servers which we wish to manage.
 
-The first tutorial example use the docker compose project in the folder [minimal-minion-activemq](../session1/minimal-minion-activemq)
+The first tutorial example uses the docker compose project in the folder [minimal-minion-activemq](../session1/minimal-minion-activemq)
 
 The  [docker-compose.yaml](../session1/minimal-minion-activemq/docker-compose.yaml) file configures an opennms horizon with its database, an opennms minion and six test servers running netsnmp.
 
