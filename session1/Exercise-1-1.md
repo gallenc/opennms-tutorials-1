@@ -151,9 +151,9 @@ We will now show how to discover a network over a range of IP addresses
 
 Log into the OpenNMS UI as shown above and navigate to the admin page by selecting the cogs.
 
-![alt text](../session1/images/AdminPage.png "Figure AdminPage.png")
+![alt text](../session1/images/adminPage.png "Figure adminPage.png")
 
-Select 'Configure Discovery' and enter two discovery ranges
+Select `Configure Discovery` and enter two discovery ranges
 
 ```
 172.20.0.1  172.20.0.254 with location  default

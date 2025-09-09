@@ -46,9 +46,9 @@ New major releases of Meridian come out once a year and each major release is su
 API's and configurations devloped for a given Meridian release are guaranteed not to require updating over the 3 year life of the platform.
 This makes Meridian a more suitable choice for a production environment.
 
-This tutorial and it's examples have currently been designed to work with [Horizon 32](https://docs.opennms.com/horizon/32/index.html) but the principles covered will also apply to [Meridian 2023](https://docs.opennms.com/meridian/2023/index.html).
+This tutorial and it's examples have currently been designed to work with [Horizon 33](https://docs.opennms.com/horizon/33/index.html) but the principles covered will also apply to [Meridian 2024](https://docs.opennms.com/meridian/2024/index.html).
 
-As you work through these tutorials you should also familiarise yourself with the relevent documentation of each feature covered as the documentation will provide more details of options which aren't included in the examples and also any minor differences between Meridian and Horizon.
+As you work through these tutorials you should also familiarise yourself with the relevant documentation of each feature covered as the documentation will provide more details of options which aren't included in the examples and also any minor differences between Meridian and Horizon.
 
 ### Other Sources of Information
 
@@ -58,7 +58,7 @@ In addition, the [OpenNMS Mattermost chat](https://chat.opennms.com/) channels a
 
 ## Getting Started Tutorial
 
-The OpenNMS documentation covers in some detail the process of [Setting up a production Horizon Instance](https://docs.opennms.com/horizon/32/deployment/core/introduction.html).
+The OpenNMS documentation covers in some detail the process of [Setting up a production Horizon Instance](https://docs.opennms.com/horizon/33/deployment/core/introduction.html).
 This can be quite daunting for a newcomer and in particular for people just wanting a system for this set of tutorials.
 Fortunately, help is at hand in the form of simple installation scripts and docker-compose examples.
 

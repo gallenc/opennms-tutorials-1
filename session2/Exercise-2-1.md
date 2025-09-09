@@ -48,8 +48,8 @@ docker compose ps
 NAME                IMAGE                              COMMAND                  SERVICE             CREATED             STATUS                 PORTS
 chubb_camera_01     onms-training/snmpsim              "/bin/sh -c 'snmpsim…"   chubb_camera_01     7 hours ago         Up 7 hours             0.0.0.0:11561->161/udp
 database            docker.io/postgres:15              "docker-entrypoint.s…"   database            7 hours ago         Up 7 hours (healthy)   5432/tcp
-horizon             docker.io/opennms/horizon:32.0.5   "/entrypoint.sh -s"      horizon             7 hours ago         Up 7 hours (healthy)   0.0.0.0:8001->8001/tcp, 0.0.0.0:8101->8101/tcp, 0.0.0.0:8980->8980/tcp, 0.0.0.0:61616->61616/tcp, 10514/udp, 0.0.0.0:10162->1162/udp
-minion1             docker.io/opennms/minion:32.0.5    "/entrypoint.sh -f"      minion1             7 hours ago         Up 7 hours (healthy)   0.0.0.0:1162->1162/udp, 0.0.0.0:1514->1514/udp, 0.0.0.0:8201->8201/tcp
+horizon             docker.io/opennms/horizon:33.1.6   "/entrypoint.sh -s"      horizon             7 hours ago         Up 7 hours (healthy)   0.0.0.0:8001->8001/tcp, 0.0.0.0:8101->8101/tcp, 0.0.0.0:8980->8980/tcp, 0.0.0.0:61616->61616/tcp, 10514/udp, 0.0.0.0:10162->1162/udp
+minion1             docker.io/opennms/minion:33.1.6    "/entrypoint.sh -f"      minion1             7 hours ago         Up 7 hours (healthy)   0.0.0.0:1162->1162/udp, 0.0.0.0:1514->1514/udp, 0.0.0.0:8201->8201/tcp
 netsnmp_1_1         polinux/snmpd                      "/bootstrap.sh"          netsnmp_1_1         7 hours ago         Up 7 hours             161/tcp, 0.0.0.0:11161->161/udp
 netsnmp_1_2         polinux/snmpd                      "/bootstrap.sh"          netsnmp_1_2         7 hours ago         Up 7 hours             161/tcp, 0.0.0.0:11261->161/udp
 netsnmp_2_1         polinux/snmpd                      "/bootstrap.sh"          netsnmp_2_1         7 hours ago         Up 7 hours             161/tcp, 0.0.0.0:11361->161/udp
@@ -79,9 +79,10 @@ alarmd.log         discovery.log      ipc.log              manager.log          
 bsmd.log           enlinkd.log        jetty-server.log     notifd.log               provisiond.log          statsd.log   web.log
 
 # have a look at the opennms-datasources.xml file and see that it has a warning that it has been created using confd
-opennms@horizon:~$ cat /etc/opennms-datasources.xml
+opennms@horizon:~$ cat etc/opennms-datasources.xml
 
 ```
+### Provisioning from a requisition
 
 Now we want to provision OpenNMS from a requisition.
 
@@ -98,22 +99,22 @@ opennms@horizon:~$ ls etc/imports/
 Minions.xml  pending  selfmonitor.xml  test-network1-requisition.xml
 
 ```
-`Minions.xml`  and `selfmonitor.xml` have been created automatically by OpenNMS but `test-network1-requisition.xml` has been injected into the container from 
+`Minions.xml`  and `selfmonitor.xml` have been created automatically by OpenNMS but `test-network1-requisition.xml` has been injected into the container from the docker compose project file : 
 [container-fs/horizon/opt/opennms-overlay/etc/imports/test-network1-requisition.xml](../session2/minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc/imports/test-network1-requisition.xml)
 
-In your UI, select the edit icon (pen) for the red test-network1-requisition
+In your UI, select the `edit` icon (pen) ![alt text](../session2/images/pencil.png "Figure pencil.png")  for the red test-network1-requisition
 
 ![alt text](../session2/images/test-network1-requisition1.png "Figure test-network1-requisition1.png")
 
-Select `synchronize` to load the requisition into the database.
+Select the `synchronize` icon ![alt text](../session2/images/synchronise.png "Figure synchronise.png") to load the requisition into the database.
 
-Select you want to scan all nodes. 
-This will tell OpenNMS to search for additional services on each node beyond the basic ICMP defined in the requisition.
+Then on the pop-up select that you want to scan all nodes. 
+This will tell OpenNMS to search for additional services on each node beyond the basic ICMP service defined in the requisition.
 
 If you now navigate to the info/nodes page (http://localhost:8980/opennms/element/nodeList.htm), you will see there are now 12 nodes in the system.
 (you may need to refresh the page several times to see all the nodes added)
 
-We now want to add the chubb_camera_01 to the requisition.
+We now want to add the chubb_camera_01 device to the requisition.
 
 Select `Add Node` and then select `use vertical layout` 
 
@@ -139,13 +140,21 @@ You will note that it has no SNMP information because the SNMP agent is not resp
 
 ![alt text](../session2/images/chubb-camera_01_noSNMP.png "Figure chubb-camera_01_noSNMP.png")
 
-Navigate to the `admin/Configure SNMP Community Names by IP Address` page.
+### Adding an SNMP community string
 
-![alt text](../session2/images/chubb-camera_01_SNMPConfig.png "Figure chubb-camera_01_SNMPConfig.png")
+We will now add the correct SNMP community string for this node.
 
-Search for address 172.20.0.103  on the default location
+Navigate to the `admin` page.
+
+![alt text](../session2/images/provisioning-community1.png "Figure provisioning-community1.png")
+
+Select the `admin/Configure SNMP Community Names by IP Address` page.
+
+Search for address 172.20.0.103 in the default location
 
 Change the read and write community strings from `public` to `chubb`  and save the configuration.
+
+![alt text](../session2/images/chubb-camera_01_SNMPConfig.png "Figure chubb-camera_01_SNMPConfig.png")
 
 When you now look at the chubb-camera_01 node page, you should see SNMP information 
 
@@ -176,8 +185,10 @@ It is also possible to PUT a change to a requisition already stored within OpenN
 A separate ReST API can also provision the SNMP configurations.
 
 Provisioning can be regularly scheduled or prompted through a reload requisition event injected through the OpenNMS ReST API. 
+
 In practice each requisition should be limited to around 5000 nodes.
 
-For more information on provisioning see [Provisioning Integration](https://docs.opennms.com/horizon/30/operation/provisioning/integration.html)
+For more information on provisioning see [Provisioning Introduction](https://docs.opennms.com/horizon/33/operation/deep-dive/provisioning/introduction.html)
+and {provisioning integration](https://docs.opennms.com/horizon/33/operation/deep-dive/provisioning/integration.html)
 
 We will cover provisioning and  requisitions in more detail in a later session. 

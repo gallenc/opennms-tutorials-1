@@ -261,7 +261,7 @@ We can also change how alarms are displayed and generate a sound on alarm update
 You can see that an important part of designing an event configuration is deciding which events raise alarms and which events clear them.
 
 There are many more options than we have covered for alarm and event definitions. 
-A good source of information is the [alarm and event documentation](https://docs.opennms.com/horizon/32/operation/deep-dive/alarms/configuring-alarms.html)
+A good source of information is the [alarm and event documentation](https://docs.opennms.com/horizon/33/operation/deep-dive/alarms/configuring-alarms.html)
 
 But also looking at the [share/xsds/eventconf.xsd](../../main/pristine-opennms-config-files/xsds/eventconf.xsd) can also reveal more options.
 

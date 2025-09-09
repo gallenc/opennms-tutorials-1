@@ -43,7 +43,7 @@ You can do this using the following commands:
 ```
 cd /opt/opennms/etc/
 git init
-git tag -a v1.0 -m 'Initial base configuration of OpenNMS 32.0.4'
+git tag -a v1.0 -m 'Initial base configuration of OpenNMS 33.0.6'
 ```
 After this, you can commit, tag and annotate any further changes you make.
 
@@ -119,10 +119,10 @@ In [Exercise-2-1](../session2/Exercise-2-1.md) we will look at how device inform
 ## Events, Alarms and Traps
 
 OpenNMS is an event driven system.
-This means that the many processes running in OpenNMS primarily communicate with each other using OpenNMS events. 
+This means that the many processes running in OpenNMS primarily communicate with each other using internal OpenNMS events. 
 OpenNMS internal events correspond to changes of state within the system. 
-Example of these you will have already seen are events surrounding the discovery of new devices or the import of requisitions.
-Other examples would be node down events where OpenNMS cannot communicate with a device threshold crossing events where the system has detected that a collected value has crossed a user set threshold.
+You will have already seen examples of these in events surrounding the discovery of new devices or the import of requisitions.
+Other examples would be node down events where OpenNMS cannot communicate with a device or threshold crossing events where the system has detected that a collected value has crossed a user set threshold.
 
 Events may also be externally generated from devices using standard event protocols communicating with OpenNMS through the network; for example SNMP traps or SYSLOGS.
 Finally, it is also possible to directly inject events into OpenNMS using the ReST API.
@@ -134,13 +134,13 @@ Events tell us something happened at a certain point of time but they don't reco
 Often devices will repeatedly send multiple events (traps or logs) when they have detected a problem. 
 This can lead to an 'Event Storm' where it is very hard for a user to deal with so many incoming events.
 
-OpenNMS uses Alarms to correlate events into a current state which makes it much easier to see what the current status of a device, service or network is. 
+OpenNMS uses Alarms to correlate events into a current state which makes it much easier to see what is the current status of a device, service or network. 
 Some events may raise an alarm and some events may cause an alarm to clear. 
 Each alarm will maintain count and a list of events contributing to the alarm state. 
 
 
-In [Exercise-2-2](../session2/Exercise-2-2.md) we will do some simple examples inject traps into OpenNMS.
+In [Exercise-2-2](../session2/Exercise-2-2.md) we will cover some simple examples to inject traps into OpenNMS.
 
-In [Exercise-2-3](../session2/Exercise-2-3.md) we will do some simple examples to help explain how  OpennNMS traps and alarms are configured.
+In [Exercise-2-3](../session2/Exercise-2-3.md) we will cover some simple examples to help explain how OpennNMS traps and alarms are configured.
 
 In the next [Session 3](../session3/README.md) we will consolidate our learning with a more complex example which imports events from an SNMP MIB.

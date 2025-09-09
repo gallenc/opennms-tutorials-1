@@ -4,7 +4,7 @@
 
 # OpenNMS Events
 
-## browsing the mibs using MibBrowser
+## Browsing the MIBs using MibBrowser
 
 A very useful free tool for browsing SNMP MIBS and  generating SNMP traps is the Ireasoning Mib Browser which can be installed on Windows or Linux and is downloaded from 
 
@@ -17,7 +17,7 @@ By convention,  SNMP agents use port 161 for responding to SNMP requests and 162
 However, in order to avoid conflicts with Linux NetSNMP, OpenNMS is usually set up to use a different port to receive traps.
 The OpenNMS core SNMP trap port is set in the file [etc/trapd-configuration.xml](../../main/pristine-opennms-config-files/etc-pristine/trapd-configuration.xml)
 
-It is worth noting that this file also contains a setting `new-suspect-on-trap="false"` which if set `true` will cause OpenNMS to scan for a new node if it does not recognise the from IP address of the trap.
+It is worth noting that this file also contains a setting `new-suspect-on-trap="false"` which if set `true` will cause OpenNMS to scan for a new node if it does not recognise the `from IP address` field of the trap packet.
 
 In our example [docker-compose.yaml](../session2/minimal-minion-activemq/docker-compose.yaml) file, you will see that each of the netsnmp containers exposes a different port on the host system. 
 And the core OpenNMS horizon and the minion1 receive SNMP traps from the host on 10162 and 1162 respectively.
@@ -44,7 +44,7 @@ When you select operations > walk and then GO, you should see output like this i
 
 Note the line `Name/OID: sysObjectID.0; Value (OID): .1.3.6.1.4.1.8072.3.2.10`
 
-The sysObjectID will be different for every vendor and device and is assigned by IANA.
+The sysObjectID will be different for every vendor and device and it is assigned to organisations by IANA.
 You can search a list of susObjectID mappings per vendor here [https://www.iana.org/assignments/enterprise-numbers/](https://www.iana.org/assignments/enterprise-numbers/)
 
 The sysObjectID is the primary means by which OpenNMS knows what sort of device it is and therefore what MIBS are available to collect data from.
@@ -102,7 +102,8 @@ In the Mibbrowser, we need to define and send a trap using the following configu
 | Snmp Trap Setting | value |
 | ----------------- | ------ |
 | host | localhost |
-| port | 10162 ( corresponds to netsnmp_1_1) |
+| port | 1162 ( corresponds to minion ) |
+| source IP | 172.20.0.101 ( corresponds to netsnmp_1_1) |
 | type | SNMPv1 |
 | Generic | Other (Enterprise specific) (corresponds to 6) |
 | OID | .1.3.6.1.4.1.52330.6.2.0.1 |
@@ -166,7 +167,7 @@ snmptrap [OPTIONS] AGENT TRAP-PARAMETERS
 The trap parameters are also called `varbinds` and consist of oid/type/value  where the type of the data can vary but we are using 'i' integer or 's ' string (for other possible types see [NetSNMP snmpset documentation](http://www.net-snmp.org/wiki/index.php/TUT:snmpset) i: INTEGER, u: unsigned INTEGER, t: TIMETICKS, a: IPADDRESS, o: OBJID, s: STRING, x: HEX STRING, d: DECIMAL STRING).
 
 Although officially, the OID of each varbind must be defined in the trap, OpenNMS is not concerned with and doesn't use the varbind OID but only the POSITION of the varbind value. (i.e. is it the first, second or third value etc. in the sequence). 
-So in these examples, Provided a varbind OID is set, it doesn't matter what the OID is as it is only the order of the varbinds which are important to OpenNMS.
+So in these examples, Provided a varbind OID is set, it doesn't matter what the OID value is as it is only the order of the varbinds which are important to OpenNMS.
 (Please note however that the event translator may care about the varbind OID but more on this later)
 
 The following breaks down the content of a trap to be sent using snmptrap:

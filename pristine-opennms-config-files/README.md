@@ -1,6 +1,6 @@
 # Pristine OpenNMS Configuration Files
 
-For convenience in these tutorials, the following folders are provided with the un-modified configuration files shipped with OpenNMS Horizon 32.0.5.
+For convenience in these tutorials, the following folders are provided with the un-modified configuration files shipped with OpenNMS Horizon 33.1.6
 
 [etc-pristine](../pristine-opennms-config-files/etc-pristine)
 
