@@ -1,5 +1,5 @@
 ---
-version: '3'
+
 
 # using fixed ip addresses so opennms provisoning config works
 # to see all network use docker network ls

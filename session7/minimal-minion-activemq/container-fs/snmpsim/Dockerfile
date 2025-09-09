@@ -4,7 +4,9 @@ RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.
     apt-get update; \
     apt-get install -y --no-install-recommends \
     snmp \
-    iputils-ping
+    iputils-ping \
+    nano \
+    netcat
     
 #RUN pip install snmpsim
 

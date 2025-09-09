@@ -20,6 +20,12 @@ docker compose cp ./example-configurations/events-generated-from-mib/CHUBB-TVBS-
 docker compose exec horizon /usr/share/opennms/bin/send-event.pl uei.opennms.org/internal/reloadDaemonConfig -p 'daemonName Eventd' 
 ```
 
+Note Perl is not installed by default in opennms containers but curl can be used instead (substitute --user username:password as appropriate and note \" escape characters used in powershell)
+
+```
+docker compose exec horizon curl --user admin:admin -X POST http://localhost:8980/opennms/rest/events -H 'Content-Type: application/json' -d '{\"uei\": \"uei.opennms.org/internal/reloadDaemonConfig\", \"severity\": \"NORMAL\", \"parms\": [{\"parmName\": \"daemonName\", \"value\": \"Eventd\" }]}' 
+```
+
 ## Simple set of alarms created from the CHUBB-TVBS-CAMERA.mib
 
 [simple-alarms-from-mib](../example-configurations/simple-alarms-from-mib/) These files contain a first cut at alarm definitions 
@@ -41,6 +47,12 @@ docker compose cp ./example-configurations/simple-alarms-from-mib/CHUBB-TVBS-CAM
 
 # send an event to reload the daemon
 docker compose exec horizon /usr/share/opennms/bin/send-event.pl uei.opennms.org/internal/reloadDaemonConfig -p 'daemonName Eventd' 
+```
+
+Note Perl is not installed by default in opennms containers but curl can be used instead (substitute --user username:password as appropriate and note \" escape characters used in powershell)
+
+```
+docker compose exec horizon curl --user admin:admin -X POST http://localhost:8980/opennms/rest/events -H 'Content-Type: application/json' -d '{\"uei\": \"uei.opennms.org/internal/reloadDaemonConfig\", \"severity\": \"NORMAL\", \"parms\": [{\"parmName\": \"daemonName\", \"value\": \"Eventd\" }]}' 
 ```
 
 

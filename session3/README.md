@@ -25,6 +25,8 @@ However we want to start with a clean system because instead of creating the con
 
 Use the new [session3/minimal-minion-activemq](../session3/minimal-minion-activemq/) project.
 
+(Note you should be copying this session into your myPracticeCourseWork folder if you want to keep a forked copy of your work). 
+
 ```
 # make sure the old database and configuration is gone by deleting the volumes using the -v option
 cd minimal-minion-activemq
@@ -116,7 +118,7 @@ All of the MIB files we will need are in the folder
 
 The MIB file we will need to create our configuration is [CHUBB-TVBS-CAMERA.mib](../session3/minimal-minion-activemq/container-fs/snmpsim/mibs/CHUBB-TVBS-CAMERA.mib). 
 
-Upload this file and right click on it and slelect `compile`.
+Upload this file and right click on it and select `compile`.
 You will get the following error:
 
 ![alt text](../session3/images/mibcompiler1-error.png "Figure mibcompiler1-error.png")
@@ -238,6 +240,14 @@ docker compose cp ./container-fs/horizon/opt/opennms-overlay/etc/events/CHUBB-TV
 # send an event to reload the daemon
 docker compose exec horizon /usr/share/opennms/bin/send-event.pl uei.opennms.org/internal/reloadDaemonConfig -p 'daemonName Eventd' 
 ```
+
+Note Perl is not installed by default in opennms containers but curl can be used instead (substitute --user username:password as appropriate and note \" escape characters used in powershell)
+
+```
+docker compose exec horizon curl --user admin:admin -X POST http://localhost:8980/opennms/rest/events -H 'Content-Type: application/json' -d '{\"uei\": \"uei.opennms.org/internal/reloadDaemonConfig\", \"severity\": \"NORMAL\", \"parms\": [{\"parmName\": \"daemonName\", \"value\": \"Eventd\" }]}' 
+```
+
+
 
 In [Exercise-3-1](../session3/Exercise-3-1.md) we will modify and test the event configuration to add alarms.
 
