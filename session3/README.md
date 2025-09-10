@@ -9,7 +9,7 @@ In this session we will attempt a worked example using a manufactures published 
 
 ![alt text](../session3/images/MotorwayCamera.jpg "Figure MotorwayCamera.jpg")
 
-Road side cameras are used to provide surveillance for [smart motorways](https://www.highwaysmagazine.co.uk/chubb-launches-new-camera-system-for-smart-motorways/6703) and CHUBB, who manufacture these cameras, have published a MIB for camera event traps sent from their camera control system. 
+Road side cameras are used to provide surveillance for [smart motorways](https://www.highwaysmagazine.co.uk/chubb-launches-new-camera-system-for-smart-motorways/6703) and CHUBB, who manufacture these cameras, have published a MIB for camera event traps sent from each of their cameras. 
 In this example we will import this MIB into OpenNMS and create camera alarms.
 
 **_NOTE:_** Disclaimer: This exercise is provided as a training example. The CHUBB MIBs used may not be the latest specified by the manufacturer.
