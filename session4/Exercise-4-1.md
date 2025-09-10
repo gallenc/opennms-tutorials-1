@@ -39,7 +39,15 @@ You need to design an event translator configuration which will translate the ev
 
 A starting point is provided here [etc/translator-configuration.xml](../session4/minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc/translator-configuration.xml) 
 This is based upon the standard translations included with OpenNMS. 
-A starting point is provided the end of the file `Translations FOR CAMERA CONTROLLER EVENTS`.
+
+We need to translate each of the incoming events so that a new event is created with the correct node id. 
+To do this, the event translator must do a lookup in the database to find the correct node id based on it's node label matching the cameraId in the trap.
+
+You will see in the file there is already a configuration `Improved LinkDown/LinkUp events`  which looks up nodes using sql. 
+You need to do a similar event lookup for each of the events defined in [etc/events/CAMERA-CONTROLLER-MIB.events.xml](../session4/minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc/events/CAMERA-CONTROLLER-MIB.events.xml) 
+
+A starting point is provided at the end of the file `Translations FOR CAMERA CONTROLLER EVENTS`. 
+Modify this to do a database lookup.
 
 You will find the answer here (but try the exercise first).
 [Exercise-4-1 Answer](../session4/Exercise4-1-answer.md)
