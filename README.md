@@ -2,6 +2,9 @@
 
 Git Repository of OpenNMS tutorial examples
 
+This is tutorial is version 2025-Horizon33 targeting OpenNMS Horizon 33 / Meridian 2025.
+For previous versions of this tutorial see [Version History](../main/versionHistory.md)
+
 The repository contains a number of example projects, exercises and an area called [myPracticeCourseWork](../main/myPracticeCourseWork/) for you to create and store your own example work during the course. 
 As you work through the sessions, you should copy the example sessions into your own [myPracticeCourseWork](../main/myPracticeCourseWork/) area and work on them there. 
 That way you can save your work in your own repository while being able to receive updates from the upstream master repository.
