@@ -137,13 +137,13 @@ The simple approach merely adds a varbind substitution  to the reduction and cle
 
 If varbind1 determines the cause of the alarm, we need to use this to uniquely distinguish which alarm is being raised or cleared on a device.
 
-In a type 1 alarm (raise), this is appended to the reduction-key
+In a type 1 alarm (raise), this is appended to the reduction-key using the substitution `%parm[#1]%`
 
 ```
       <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="1" auto-clean="false" />
 ```
 
-In  type 2 alarm (clear), this is also appended to the clear key
+In  type 2 alarm (clear), this is also appended to the clear key using the substitution `%parm[#1]%`
 
 ```      
       <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2"
@@ -152,7 +152,7 @@ In  type 2 alarm (clear), this is also appended to the clear key
 ```
 
 This simple approach works well but it has the significant disadvantage that all of the events and alarms defined this way will have the same severity.
-They also still have to have the same text (albeit with text substitution).
+They also still have to show substantially the same text (albeit with text substitution).
 
 A more complete approach fully decodes all of the problem causes into separate events. 
 This is more work but it allows full flexibility as to the text content and the severity of each configured event and alarm.
