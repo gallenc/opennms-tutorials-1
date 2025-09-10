@@ -55,7 +55,7 @@ The provided test-network1-requisition now has two cameras
 | chubb_camera_01 | 161        | 11561                  | 172.20.0.103        | chubb_camera_01 | chubb_camera_01 |
 | chubb_camera_02 | 161        | 11661                  | 172.20.2.103        | chubb_camera_02 | chubb_camera_02 |
 
-You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_02 and chubb_camera_02 as covered in [Exercise-2-1](../session1/Exercise-2-1.md)
+You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_02 and chubb_camera_02 as covered in [Exercise-2-1](../session2/Exercise-2-1.md)
 
 You should now have the full test network including the cameras ready for you to design the configuration.
 
