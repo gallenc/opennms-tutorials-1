@@ -78,7 +78,6 @@ Ping horizon to make sure you can see it.
 
 ```
 ping horizon
-
 ```
 
 Try sending the following trap from chubb_camera_01 to horizon using netsnmp.
@@ -86,7 +85,6 @@ You should see an unformatted event from chubb_camera_01 in the OpenNMS event li
 
 ```
 # send a trap to horizon
-
 snmptrap -v 2c -c public horizon:1162 ""  .1.3.6.1.4.1.52330.6.2.0.1    .1.3.6.1.4.1.52330.6.2.1.0 i 0  .1.3.6.1.4.1.52330.6.2.5.0 i 1
 ```
 Do the same for chubb_camera_02 but this time send the trap to minion1
