@@ -32,12 +32,12 @@ This is the answer to [Exercise-4-1](../session4/Exercise-4-1.md)
       
 ```
 
-A complete answer is here : [translator-configuration.xml](../session4/Exercise4-1-answer/translator-configuration.xml)
+A complete answer is here with all of the event translations : [translator-configuration.xml](../session4/Exercise4-1-answer/translator-configuration.xml)
 
 ---
 **NOTE**
-You will need to translate all of the required raise and clear traps. 
-If a simple alarm configuration is adopted which uses the varbind paramameter within the reduction and clear keys, then only two translations would be needed. 
+* You will need to translate all of the required raise and clear traps. 
+  If a simple alarm configuration is adopted which uses the varbind paramameter within the reduction and clear keys, then only two translations would be needed. 
 ---
 
 If you inject a trap through the `camera-controller`, you will see two sets of events and alarms are generated.
