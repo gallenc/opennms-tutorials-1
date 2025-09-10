@@ -170,6 +170,8 @@ If you select `save event file`, you will see from the log that a new event defi
 
 ## Testing the parsed mib events
 
+You will see from the log messages that OpenNMS has modified `eventconf.xml` and added the new file `CHUBB-TVBS-CAMERA-MIB.events.xml` inside the container.
+
 OpenNMS should now be able to process the trap we sent previously from the chubb_camera_01.
 Try sending the trap again.
 
@@ -179,7 +181,8 @@ docker compose exec chubb_camera_01 bash
 snmptrap -v 2c -c public horizon:1162 ""  .1.3.6.1.4.1.52330.6.2.0.1    .1.3.6.1.4.1.52330.6.2.1.0 i 0  .1.3.6.1.4.1.52330.6.2.5.0 i 1
 ```
 
-You should now see new events being generated in OpenNMS.
+You should now see new events being generated in the OpenNMS event list.
+The event is no longer an unrecognised event but is an event defined from the CHUBB mib.
 
 ![alt text](../session3/images/chubb-basic-events.png "Figure chubb-basic-events.png")
 
@@ -193,7 +196,7 @@ and the faultState can have one of two values:
 
 * clear(0) triggered(1).
 
-So we can see that even though we only have one `healthChange` trap definition, it can correspond to the raising or clearing of up to twelve different independent problems which can occur in any combination on the camera.
+So we can see that even though we only have one `healthChange` trap definition, it can correspond to the raising or clearing of up to twelve different independent problems which can occur in any combination in the camera.
 
 You will also see that all the generated events still have an `Indeterminate` severity. 
 We have no idea from the event whether a `washerMotorFault` is more or less critical to deal with than a `videoSignal` fault.
@@ -212,7 +215,7 @@ We can copy the files from inside the container into the local project directory
 docker compose cp horizon:/usr/share/opennms/etc/events/CHUBB-TVBS-CAMERA-MIB.events.xml .
 docker compose cp horizon:/usr/share/opennms/etc/eventconf.xml .
 ```
-This will copy the files into the root of your project for you to work with.
+This will copy the files into the root of your docker compose project for you to work with.
 
 **_NOTE:_** Example copies of these raw files are also provided in the [session3/minimal-minion-activemq/example-configurations/events-generated-from-mib](../session3/minimal-minion-activemq/example-configurations/events-generated-from-mib) folder.
 
@@ -244,7 +247,7 @@ docker compose cp ./container-fs/horizon/opt/opennms-overlay/etc/events/CHUBB-TV
 # and if eventconf.xml is not already modified
 docker compose cp ./container-fs/horizon/opt/opennms-overlay/etc/eventconf.xml horizon:/usr/share/opennms/etc/
 
-# send an event to reload the daemon if perl is installed 
+# send an event to reload the daemon (if perl is installed)
 docker compose exec horizon /usr/share/opennms/bin/send-event.pl uei.opennms.org/internal/reloadDaemonConfig -p 'daemonName Eventd' 
 ```
 
