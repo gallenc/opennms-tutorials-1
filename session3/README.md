@@ -5,7 +5,7 @@
 ## Introduction
 
 In [Session 2](../session2/README.md) we saw how to create an event and alarm definition using an unformatted OpenNMS event from an unknown trap.
-In this session we will do a worked example using the manufactures published SNMP MIBS.
+In this session we will attempt a worked example using a manufactures published SNMP MIBS.
 
 ![alt text](../session3/images/MotorwayCamera.jpg "Figure MotorwayCamera.jpg")
 
@@ -14,9 +14,7 @@ In this example we will import this MIB into OpenNMS and create camera alarms.
 
 **_NOTE:_** Disclaimer: This exercise is provided as a training example. The CHUBB MIBs used may not be the latest specified by the manufacturer.
 
-
 [Session 3 Video](https://youtu.be/8rpTFEEIDs8)
-
 
 ## Getting started
 In this example we will use the same network as we used in [Session 2](../session2/README.md). 
@@ -39,7 +37,7 @@ docker compose up -d
 # this will take a while because we are recreating the database
 docker compose logs -f horizon
 
-# OpenNMS will be up around when you see the logs reach
+# OpenNMS will be up around the time when you see the logs pass the following lines
 horizon  | [INFO] Invoking start on object OpenNMS:Name=PerspectivePoller
 horizon  | [INFO] Invocation start successful for MBean OpenNMS:Name=PerspectivePoller
 
@@ -48,14 +46,14 @@ horizon  | [INFO] Invocation start successful for MBean OpenNMS:Name=Perspective
 ```
 Once OpenNMS is running, open a session at http:\\localhost:8980 (username: admin password: admin)
 
-The provided test-network1-requisition now has two cameras
+The provided [test-network1-requisition](../minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc/imports/test-network1-requisition.xml) now has two cameras in different subnets.
 
-| container | Native SNMP port | Host Exposed SNMP Port | internal ip address | node label | foreign id |
-| --------- | ---------------- | ---------------------- | ------------------- | ---------- | ---------- |
-| chubb_camera_01 | 161        | 11561                  | 172.20.0.103        | chubb_camera_01 | chubb_camera_01 |
-| chubb_camera_02 | 161        | 11661                  | 172.20.2.103        | chubb_camera_02 | chubb_camera_02 |
+| container | Native SNMP port | Host Exposed SNMP Port | internal ip address | node label | foreign id | location (minion) |
+| --------- | ---------------- | ---------------------- | ------------------- | ---------- | ---------- | ----------------- |
+| chubb_camera_01 | 161        | 11561                  | 172.20.0.103        | chubb_camera_01 | chubb_camera_01 | Default |
+| chubb_camera_02 | 161        | 11661                  | 172.20.2.103        | chubb_camera_02 | chubb_camera_02 | minion1-location |
 
-You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_02 and chubb_camera_02 as covered in [Exercise-2-1](../session1/Exercise-2-1.md)
+You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_01 and chubb_camera_02 as covered in [Exercise-2-1](../session1/Exercise-2-1.md)
 
 You should now have the full test network including the cameras ready for you to design the configuration.
 
@@ -106,24 +104,30 @@ If you are receiving unformatted events in OpenNMS, your connectivity is working
 ## Parsing a MIB
 
 OpenNMS provides a web based tool to read SNMP mibs and generate configurations. 
-The Web UI is functional but a bit limited in scope within a container a so will be better off generating the configuration files from the UI and then editing them outside the container.
+The Web UI is functional but a bit limited in scope within a container so we will be better off generating the configuration files from the UI and then copying them outside the container for editing.
 
-To open the Mib compiler go to the Admin Page (Cogs) and select Additional Tools > SNMP MIB Compiler.
+To open the Mib compiler go to the Admin Page (Cogs) ![alt text](../session3/images/cogs.png "Figure cogs.png") and select Additional Tools > SNMP MIB Compiler.
+
+![alt text](../session3/images/provisioning-mib.png "Figure provisioning-mib.png")
+
+This will open the MIB compiler.
 
 You can see there is a button labelled `Upload MIB` which allows us to upload any mib files into OpenNMS for processing
 
-All of the MIB files we will need are in the folder 
+All of the MIB files we will need are in the following folder in your checked out project:
 
 [session3/minimal-minion-activemq/container-fs/snmpsim/mibs](../session3/minimal-minion-activemq/container-fs/snmpsim/mibs)
 
 The MIB file we will need to create our configuration is [CHUBB-TVBS-CAMERA.mib](../session3/minimal-minion-activemq/container-fs/snmpsim/mibs/CHUBB-TVBS-CAMERA.mib). 
 
 Upload this file and right click on it and select `compile`.
-You will get the following error:
+
 
 ![alt text](../session3/images/mibcompiler1-error.png "Figure mibcompiler1-error.png")
 
-If you examine the MIB file you will see that it requires definitions taken from other MIB files.
+You will get the following error: `[ERROR] Dependencies required: <b>[CHUBB-ROOT, SNMPv2-CONF, SNMPv2-SMI]</b>`
+
+If you examine the MIB file you will see that it requires definitions taken from other MIB files (CHUBB-ROOT, SNMPv2-CONF, SNMPv2-SMI).
 
 ```
 CHUBB-TVBS-CAMERA-MIB DEFINITIONS ::= BEGIN
@@ -140,6 +144,8 @@ IMPORTS
 ```
 
 So in order to use this MIB we must import and compile its dependencies first and since each of the dependencies also requires other MIB files, you may have a bit of trial and error to upload and compile the files in the correct order.
+
+All of the dependencies are also in the folder [session3/minimal-minion-activemq/container-fs/snmpsim/mibs](../session3/minimal-minion-activemq/container-fs/snmpsim/mibs)
 
 Once you have upload and compiled all of the files, you will be in a position to generate the event definitions by right clicking on the `CHUBB-TVBS-CAMERA-MIB.mib` file and selecting `generate events` as shown in the image below.
 
@@ -200,9 +206,9 @@ We are now going to turn the event definitions generated from the mib into a mor
 
 ### create an overlay configuration in docker compose
 
-First, we need to extract the two event files we have generated so that we can modify and re-inject them as an overlay to the container.
+First, we need to extract the two event files we have generated inside the container so that we can modify and re-inject them as an overlay to the container.
 
-We can copy the files into the local directory using the docker compose cp command
+We can copy the files from inside the container into the local project directory using the docker compose `cp` command
 
 ```
 docker compose cp horizon:/usr/share/opennms/etc/events/CHUBB-TVBS-CAMERA-MIB.events.xml .
@@ -210,7 +216,7 @@ docker compose cp horizon:/usr/share/opennms/etc/eventconf.xml .
 ```
 This will copy the files into the root of your project for you to work with.
 
-**_NOTE:_** Example copies of these raw files are also provided in the [session3/minimal-minion-activemq/example-configurations/events-generated-from-mib](../session3/minimal-minion-activemq/example-configurations/events-generated-from-mib) folder'
+**_NOTE:_** Example copies of these raw files are also provided in the [session3/minimal-minion-activemq/example-configurations/events-generated-from-mib](../session3/minimal-minion-activemq/example-configurations/events-generated-from-mib) folder.
 
 Now place the copied `eventconf.xml` file in the [session3/minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc](../session3/minimal-minion-activemq/container-fs/horizon/opt/opennms-overlay/etc) folder.
 
@@ -237,17 +243,20 @@ To do this try;
 cd minimal-minion-activemq
 docker compose cp ./container-fs/horizon/opt/opennms-overlay/etc/events/CHUBB-TVBS-CAMERA-MIB.events.xml horizon:/usr/share/opennms/etc/events/
 
-# send an event to reload the daemon
+# and if eventconf.xml is not already modified
+docker compose cp ./container-fs/horizon/opt/opennms-overlay/etc/eventconf.xml horizon:/usr/share/opennms/etc/
+
+# send an event to reload the daemon if perl is installed 
 docker compose exec horizon /usr/share/opennms/bin/send-event.pl uei.opennms.org/internal/reloadDaemonConfig -p 'daemonName Eventd' 
 ```
 
-Note Perl is not installed by default in opennms containers but curl can be used instead (substitute --user username:password as appropriate and note \" escape characters used in powershell)
+Note Perl is not installed by default in newer opennms containers but curl can be used instead (substitute --user username:password as appropriate and note the \" escape characters used in PowerShell)
 
 ```
 docker compose exec horizon curl --user admin:admin -X POST http://localhost:8980/opennms/rest/events -H 'Content-Type: application/json' -d '{\"uei\": \"uei.opennms.org/internal/reloadDaemonConfig\", \"severity\": \"NORMAL\", \"parms\": [{\"parmName\": \"daemonName\", \"value\": \"Eventd\" }]}' 
 ```
 
-
+This completes an exercise in generating the raw event configuration files.
 
 In [Exercise-3-1](../session3/Exercise-3-1.md) we will modify and test the event configuration to add alarms.
 
