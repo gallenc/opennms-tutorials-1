@@ -40,9 +40,12 @@ You will need to translate all of the required raise and clear traps.
 If a simple alarm configuration is adopted which uses the varbind paramameter within the reduction and clear keys, then only two translations would be needed. 
 ---
 
-If you inject a trap, you will see two sets of events and alarms are generated.
+If you inject a trap through the `camera-controller`, you will see two sets of events and alarms are generated.
 
 ```
+docker compose exec camera-controller bash
+
+
 #### panMotor raise
 snmptrap -v 2c -c public horizon:1162 ""  .1.3.6.1.4.1.52330.6.2.0.1        .1.3.6.1.4.1.52330.6.2.7.0 s camera_008   .1.3.6.1.4.1.52330.6.2.1.0 i 0  .1.3.6.1.4.1.52330.6.2.5.0 i 1
 
