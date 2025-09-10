@@ -21,8 +21,26 @@ volumes:
   data-opennms: {}
   data-opennms-cfg: {}
   data-grafana: {}
+  data-pgadmin: {}
 
 services:
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: minad1234
+      PGADMIN_SERVER_JSON_FILE: /pgadmin/servers.json
+    volumes:
+      - data-pgadmin:/var/lib/pgadmin
+      - ./container-fs/pgadmin/:/pgadmin
+    networks:
+      N000:
+        ipv4_address: 172.20.0.11
 
   database:
     image: ${DOCKER_REGISTRY:-docker.io}/postgres:${POSTGRES_VERSION:-13}
