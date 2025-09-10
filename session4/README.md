@@ -7,11 +7,12 @@
 ## Introduction
 
 We have looked at various techniques for creating event and alarm configurations from SNMP Mibs.
-In this session we will look at various other tools which can group, enhance or modify events and alarms to provide more meaningful service impact information to and users. 
+
+In this session we will look at various other tools which can group, enhance or modify events and alarms to provide more meaningful service impact information to users. 
 
 ## Event Translator
 
-Often, not all of the information required to provide useful events is in a given trap and resulting event needs enriched from addtional data sources.
+Often, not all of the information required to provide useful events is in a given trap and the resulting event needs enriched from additional data sources.
 
 The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) is a tool which can create a new event from an existing event which is enriched with data from the database.
 
