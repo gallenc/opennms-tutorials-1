@@ -3,6 +3,7 @@
 Git Repository of OpenNMS tutorial examples
 
 This is tutorial is version 2025-Horizon33 targeting OpenNMS Horizon 33 / Meridian 2025.
+
 For previous versions of this tutorial see [Version History](../main/versionHistory.md)
 
 The repository contains a number of example projects, exercises and an area called [myPracticeCourseWork](../main/myPracticeCourseWork/) for you to create and store your own example work during the course. 
@@ -35,14 +36,14 @@ Before doing anything else you will need to follow these getting started instruc
 
 ## Prerequisites
 
-All of these examples have been tried on Docker Desktop on Ubuntu 22 running in VirtualBox.
+All of these examples have been tried on Docker Desktop installed in Windows.
 
-They should also work on Docker Desktop installed in Windows.
+They should also work on Docker installed in linux  (e.g. Ubuntu 22 running in VirtualBox.
 
 In order to complete these exercises you will need docker and docker-compose for the containerised exercises. 
 The easiest way to get these packages is to install [docker-desktop](https://www.docker.com/products/docker-desktop/) which is available for Windows, Mac or Linux machines. 
 
-You will also need Java Open JDK (minimum version 11), An IDE (Eclipse or Intelij), Maven and git installed on your machine. 
+You will also need Java Open JDK (minimum version 17), An IDE (Eclipse or Intelij), Maven and git installed on your machine. 
 
 [Git for windows](https://git-scm.com/download/win)
 

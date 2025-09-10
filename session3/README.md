@@ -53,7 +53,7 @@ The provided [test-network1-requisition](../minimal-minion-activemq/container-fs
 | chubb_camera_01 | 161        | 11561                  | 172.20.0.103        | chubb_camera_01 | chubb_camera_01 | Default |
 | chubb_camera_02 | 161        | 11661                  | 172.20.2.103        | chubb_camera_02 | chubb_camera_02 | minion1-location |
 
-You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_01 and chubb_camera_02 as covered in [Exercise-2-1](../session1/Exercise-2-1.md)
+You will need to import the test-network1-requisition and add the `chubb` snmp community string for chubb_camera_02 and chubb_camera_02 as covered in [Exercise-2-1](../session2/Exercise-2-1.md)
 
 You should now have the full test network including the cameras ready for you to design the configuration.
 
@@ -76,7 +76,6 @@ Ping horizon to make sure you can see it.
 
 ```
 ping horizon
-
 ```
 
 Try sending the following trap from chubb_camera_01 to horizon using netsnmp.
@@ -84,7 +83,6 @@ You should see an unformatted event from chubb_camera_01 in the OpenNMS event li
 
 ```
 # send a trap to horizon
-
 snmptrap -v 2c -c public horizon:1162 ""  .1.3.6.1.4.1.52330.6.2.0.1    .1.3.6.1.4.1.52330.6.2.1.0 i 0  .1.3.6.1.4.1.52330.6.2.5.0 i 1
 ```
 Do the same for chubb_camera_02 but this time send the trap to minion1
