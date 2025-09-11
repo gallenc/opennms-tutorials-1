@@ -111,7 +111,7 @@ Spend a little time browsing the entity objects and seeing how they relate to th
 Often, not all of the information required to provide useful reporting is in a given trap and so the event presented to the user needs enriched from additional data sources.
 The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) is a tool which can create a new event from an existing event which is enriched with data from the database.
 
-The unmodified [translator-configuration.xml](/../../pristine-opennms-config-files/etc-pristine/translator-configuration.xml) runs by default in OpenNMS.
+The unmodified [translator-configuration.xml](../pristine-opennms-config-files/etc-pristine/translator-configuration.xml) runs by default in OpenNMS.
 
 We will consider the `Improved LinkDown/LinkUp events` translator definition which improves the SNMP link events.
 
@@ -126,7 +126,7 @@ You will see from the following mib browser walk if the trap has given us the if
 ![alt text](../session4/images/ifindex.png "Figure ifindex.png")
 
 
-The definition which turns an SNMP LinkDown trap into an event is in the file [etc/events/opennms.snmp.trap.translator.events.xml](/../../pristine-opennms-config-files/etc-pristine/events/opennms.snmp.trap.translator.events.xml).
+The definition which turns an SNMP LinkDown trap into an event is in the file [etc/events/opennms.snmp.trap.translator.events.xml](/../pristine-opennms-config-files/etc-pristine/events/opennms.snmp.trap.translator.events.xml).
 
 ```
    <event>
@@ -168,7 +168,7 @@ The SNMP trap definition for a link down event will always have a varbind parame
 
 So we are looking for a paramater (varbind) with the name .1.3.6.1.2.1.2.2.1.1.IFINDEX where IFINDEX is the number of the interface and will tell us which row in the OpenNMS interface table we are looking for.
 
-The following excerpt from [translator-configuration.xml](/../../pristine-opennms-config-files/etc-pristine/translator-configuration.xml) shows how this event is processed.
+The following excerpt from [translator-configuration.xml](/../pristine-opennms-config-files/etc-pristine/translator-configuration.xml) shows how this event is processed.
 
 This shows how the `uei.opennms.org/generic/traps/SNMP_Link_Down` event is enriched with node data to create two new events  `uei.opennms.org/translator/traps/SNMP_Link_Down` and `uei.opennms.org/internal/topology/linkDown`.
 
