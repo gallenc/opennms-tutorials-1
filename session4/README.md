@@ -1,4 +1,4 @@
-# Session 4 - Additional Event and Alarm Enrichment
+# Session 4 - Database Event and Alarm Enrichment
 
 [Main Menu](../README.md) | [Session 4](../session4/README.md)
 
