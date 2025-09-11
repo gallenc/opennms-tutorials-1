@@ -23,7 +23,7 @@ Two configurable daemons can use SQL queries in order to manipulate the tables d
 * [Vacuumd](https://docs.opennms.com/horizon/33/reference/daemons/daemon-config-files/vacuumd.html) is a daemon which can also process database tables on events and on a schedule. 
    In earlier versions of OpenNMS this was used to process events into alarms but that functionality is now performed by the drools rules integration.
    Although Vacuumd is mostly deprecated, it still has an important role in scheduling the removal of very old event records from the database. 
-   The configuration for Vaccumd is held in [/etc/vacuumd-configuration.xml](../../../main/pristine-opennms-config-files/etc-pristine/vacuumd-configuration.xml)
+   The configuration for Vaccumd is held in [/etc/vacuumd-configuration.xml](../pristine-opennms-config-files/etc-pristine/vacuumd-configuration.xml)
 
 We will not look further at Vacuumd in this training but will instead concentrate on the Event Translator.
 Firstly, however, we will begin by examining the OpenNMS database.
