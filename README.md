@@ -17,7 +17,7 @@ Please read and follow the Getting Started instructions before doing anything el
 
 [session2](../main/session2/) Introduction to Provisioning OpenNMS
 
-[session3](../main/session3/) Alarms and Events
+[session3](../main/session3/) Introduction to Alarms and Events
 
 [session4](../main/session4/) Database Event and Alarm Enrichment
 
