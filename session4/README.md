@@ -115,13 +115,13 @@ The unmodified [translator-configuration.xml](/../../pristine-opennms-config-fil
 
 We will consider the `Improved LinkDown/LinkUp events` translator definition which improves the SNMP link events.
 
-By themselves SNMP link events only tell us the `ifindex` of the interface which has gone down.
+By themselves SNMP link events only tell us the `ifIndex` of the interface which has gone down.
 The name and type of this interface is not supplied in the trap.
 However the name (eth0 eth1 etc) is very useful to the user.
 
-OpenNMS regularly scans the IF table of a device and will already have the additional information for a given ifindex so we need to extract the ifindex from the trap and look up the information in the interface table before adding it into the event which the user will see.
+OpenNMS regularly scans the IF table of a device and will already have the additional information for a given ifIndex so we need to extract the ifIndex from the trap and look up the information in the interface table before adding it into the event which the user will see.
 
-You will see from the following mib browser walk if the trap has given us the ifindex oid, we can find the other information from the SNMP interface table previously read by OpenNMS. 
+You will see from the following mib browser walk if the trap has given us the ifIndex oid, we can find the other information from the SNMP interface table previously read by OpenNMS. 
 
 ![alt text](../session4/images/ifindex.png "Figure ifindex.png")
 
@@ -160,11 +160,11 @@ Note that `<logmsg dest="donotpersist">` means that this event is never persiste
 All of the SNMP trap varbinds become parameters in an event and we will look at these parameters in the translator.
 
 Remember that OpenNMS events only usually  care about the position of a varbind, not its name. 
-But in this case the name is very important as the name changes with the ifindex.
+But in this case the name is very important as the name changes with the ifIndex.
 
 The link up and down events from devices are a bit complicated to interpret, particularly since the ifIndex of a port can move around depending on the configuration of the device. 
 
-The SNMP trap definition for a link down event will always have a varbind parameter named after the oid of the ifindex of the link which has gone down.
+The SNMP trap definition for a link down event will always have a varbind parameter named after the oid of the ifIndex of the link which has gone down.
 
 So we are looking for a paramater (varbind) with the name .1.3.6.1.2.1.2.2.1.1.IFINDEX where IFINDEX is the number of the interface and will tell us which row in the OpenNMS interface table we are looking for.
 
@@ -249,18 +249,31 @@ If the sql statement returns no result, the `ifDescr` parameter will be given th
 The SQL is actually a JDBC query where each `?` mark is substituted with a value.
 
 The first value is the `nodeid` of the node creating the event. 
-The `matches=".*"` allows us to use a regular expression to only match certain values.
+The `matches=".*"` allows us to use a regular expression to only match certain values of nodeid.
 In this case all values of nodeid are matched so we are looking for the interface on this node.
 
-The second value will be the contents of a varbind which gives the ifindex of the link that has gone down
+The second value will be the contents of the parameter (varbind) which gives the ifIndex of the link that has gone down
 
-In this case we are using a regular expression to extract the last number characters from the .1.3.6.1.2.1.2.2.1.1.nn oid
-The last number will be the ifindex we can use to look up the interface
+In this case we are using a regular expression to extract the last number characters from the .1.3.6.1.2.1.2.2.1.1.nn oid. 
+The last number `nn` will be the ifIndex we can use to look up the snmpInterface table.
 
-Armed with the nodeid and interfce ifindex, we can look up the interface in the snmpInteface table and extract the snmpIfdescr i.e. the interface descriptor field. 
-This is repeatec for al l3 values we want to include in the new event.
+> Regular Expressions (regex)
+> Regular expressions are a sequence of characters that forms a search pattern to find one or more sequences of characters in a text string
+> It is worth getting to understand how regular expressions work because they are used widely in OpenNMS.
+> You can find a simple tutorial here [W3 Schools Java Regex](https://www.w3schools.com/java/java_regex.asp).
+>
+> For this example we can test our regular expression against an oid using [https://regex101.com/](https://regex101.com/)
+>
+> The search string from above is `~^\.1\.3\.6\.1\.2\.1\.2\.2\.1\.1\.([0-9]*)$` but the initial `~` just tells OpenNMS this is a regular expression, so we omit in in the test.
+> Use ifIndex oid such as `.1.3.6.1.2.1.2.2.1.1.20` and we should find the match group 1 finds the ifIndex `20`
 
-If this appear complicated, dont worry, it is but it shows us the power of the event translator to usefully enhance the date in events and alarms.
+> ![alt text](../session4/images/regex101-1.png "Figure regex101-1.png")
+
+
+Armed with the nodeid and interface ifIndex, we can look up the interface in the snmpInteface table and extract the snmpIfdescr i.e. the interface descriptor field. 
+This is repeated for all l3 values we want to include in the new event.
+
+If this appear complicated, don't worry, it is but it shows us the power of the event translator to usefully enhance the date in events and alarms.
 
  but in most cases we don't need to use such complex configurations and the configuration for the next use case will be much simpler.
 
