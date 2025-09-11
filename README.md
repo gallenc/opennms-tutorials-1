@@ -17,9 +17,9 @@ Please read and follow the Getting Started instructions before doing anything el
 
 [session2](../main/session2/) Introduction to Provisioning OpenNMS
 
-[session3](../main/session3/) Worked Example - Alarms and Events
+[session3](../main/session3/) Alarms and Events
 
-[session4](../main/session4/) Further Event and Alarm Enrichment Examples
+[session4](../main/session4/) Database Event and Alarm Enrichment
 
 [session5](../main/session5/) Performance Data Collection 1
 
@@ -36,9 +36,9 @@ Before doing anything else you will need to follow these getting started instruc
 
 ## Prerequisites
 
-All of these examples have been tried on Docker Desktop installed in Windows.
+All of these examples have been tried on Docker Desktop installed on Windows 11.
 
-They should also work on Docker installed in linux  (e.g. Ubuntu 22 running in VirtualBox.
+They should also work on Docker installed in linux  (e.g. Ubuntu 22 running in VirtualBox).
 
 In order to complete these exercises you will need docker and docker-compose for the containerised exercises. 
 The easiest way to get these packages is to install [docker-desktop](https://www.docker.com/products/docker-desktop/) which is available for Windows, Mac or Linux machines. 
