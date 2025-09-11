@@ -257,7 +257,7 @@ The second value will be the contents of the parameter (varbind) which gives the
 In this case we are using a regular expression to extract the last number characters from the .1.3.6.1.2.1.2.2.1.1.nn oid. 
 The last number `nn` will be the ifIndex we can use to look up the snmpInterface table.
 
-> Regular Expressions (regex)
+> **Regular Expressions (regex)**
 > Regular expressions are a sequence of characters that forms a search pattern to find one or more sequences of characters in a text string
 > It is worth getting to understand how regular expressions work because they are used widely in OpenNMS.
 > You can find a simple tutorial here [W3 Schools Java Regex](https://www.w3schools.com/java/java_regex.asp).
@@ -266,14 +266,15 @@ The last number `nn` will be the ifIndex we can use to look up the snmpInterface
 >
 > The search string from above is `~^\.1\.3\.6\.1\.2\.1\.2\.2\.1\.1\.([0-9]*)$` but the initial `~` just tells OpenNMS this is a regular expression, so we omit in in the test.
 > Use ifIndex oid such as `.1.3.6.1.2.1.2.2.1.1.20` and we should find the match group 1 finds the ifIndex `20`
-
+>
 > ![alt text](../session4/images/regex101-1.png "Figure regex101-1.png")
+>
 
 
 Armed with the nodeid and interface ifIndex, we can use the sql query to look up the interface in the snmpInteface table and extract the snmpIfdescr i.e. the interface descriptor field. 
-This is repeated for all l3 values we want to include in the new event.
+A similar assignment is repeated for all 3 values we want to include in the new event.
 
-If this appears complicated, don't worry, it is! but it shows us the power of the event translator to usefully enhance the date in events and alarms.
+If this appears complicated, don't worry, it is! but it shows us the power of the Event Translator to usefully enhance the date in events and alarms.
 
 In most cases we don't need to use such complex configurations and the configuration for the next use case will be much simpler.
 
