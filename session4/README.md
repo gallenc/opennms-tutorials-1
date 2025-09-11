@@ -62,7 +62,7 @@ Under `opennms` you will see an entry `schemas` and under that you will see `tab
 
 In the top bar, under `tools` you can select the `Query Tool` which will allow you to enter queries.
 
-THe following diagram shows the query tool open.
+The following diagram shows the query tool open.
 
 ![alt text](../session4/images/pgadmin-1.png "Figure pgadmin-1.png")
 
@@ -82,7 +82,7 @@ Note that in OpenNMS, most of the model objects (Entities) are backed by a datab
 
 Most model class names begin with `Onms...` e.g. `OnmsAlarm.java`.
 
-The table definition in each entity class will point to the database table backing the object.
+The `@Table` annotation in each entity class will point to the database table backing the object.
 For instance [OnmsAlarm.java](https://github.com/OpenNMS/opennms/blob/opennms-33.1.6-1/opennms-model/src/main/java/org/opennms/netmgt/model/OnmsAlarm.java)
 
 ```
@@ -270,15 +270,14 @@ The last number `nn` will be the ifIndex we can use to look up the snmpInterface
 > ![alt text](../session4/images/regex101-1.png "Figure regex101-1.png")
 
 
-Armed with the nodeid and interface ifIndex, we can look up the interface in the snmpInteface table and extract the snmpIfdescr i.e. the interface descriptor field. 
+Armed with the nodeid and interface ifIndex, we can use the sql query to look up the interface in the snmpInteface table and extract the snmpIfdescr i.e. the interface descriptor field. 
 This is repeated for all l3 values we want to include in the new event.
 
-If this appear complicated, don't worry, it is but it shows us the power of the event translator to usefully enhance the date in events and alarms.
+If this appears complicated, don't worry, it is! but it shows us the power of the event translator to usefully enhance the date in events and alarms.
 
- but in most cases we don't need to use such complex configurations and the configuration for the next use case will be much simpler.
+In most cases we don't need to use such complex configurations and the configuration for the next use case will be much simpler.
 
-
-[Exercise-4-1](../session4/Exercise-4-1.md) walks through the process of creating an example event translator for a real use case.
+Go to [Exercise-4-1](../session4/Exercise-4-1.md) which walks through the process of creating an example event translator for a real use case.
 
 
 
