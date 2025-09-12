@@ -72,6 +72,6 @@ You would then add `<logmsg dest="donotpersist">` to the camera-controller trap 
 
 That way the camera-controller events would never be peristed or displayed but would change into events which apper to come from the cameras themselves.
 
-I will leave it to you to work on thsi exercise if you wish.
+I will leave it to you to work on this exercise if you wish.
 
 
