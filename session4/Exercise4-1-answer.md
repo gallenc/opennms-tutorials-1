@@ -4,7 +4,7 @@
 
 This is the answer to [Exercise-4-1](../session4/Exercise-4-1.md)
 
-THe example below only shows translations for two of the events.
+The example below only shows translations for two of the events.
 
 You can see we are extracting the varbind parameter named `.1.3.6.1.4.1.52330.6.2.7.0`.
 There is no need for a regular expression because the name of the varbind never changes with the value it represents.
