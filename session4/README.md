@@ -122,7 +122,6 @@ You will see from the following mib browser walk if the trap has given us the if
 
 ![alt text](../session4/images/ifindex.png "Figure ifindex.png")
 
-
 The definition which turns an SNMP LinkDown trap into an event is in the file [etc/events/opennms.snmp.trap.translator.events.xml](../pristine-opennms-config-files/etc-pristine/events/opennms.snmp.trap.translator.events.xml).
 
 ```
@@ -225,6 +224,7 @@ The simplest mapping will create a duplicate of the original event including all
 ```
 
 The more complicated mapping will create a new  event `uei.opennms.org/translator/traps/SNMP_Link_Down` with all of its varbinds copied.
+This event needs to have thee extra parameters `ifDiscr`,`ifName` and `ifAlias`, which are not available in the original trap but which may be available in in the `snmpInterfaces` table of the OpenNMS database.
 
 The `snmpInterfaces` table is populated for a node if it has an SNMP agent which has successfully been read by OpenNMS.
 This table can contain useful additional information which is not in the original trap to identify the description, name and alias of the interface.
