@@ -13,10 +13,10 @@ In this session we will see how to enhance or modify events and alarms to provid
 
 OpenNMS uses [Postgresql](https://www.postgresql.org/) as the underlying database for storing it's dynamic configurations and processing alarms and events.
 
-Most access to the database in OpenNMS is performed through the java persistence layer which is based on the [Java Persistence API (JPA)](https://en.wikipedia.org/wiki/Jakarta_Persistence) implemented in [Hibernate](https://en.wikipedia.org/wiki/Hibernate_(framework).
-More recent alarm and correlation processes such as Drools use this persistence layer.
+Most access to the database in OpenNMS is performed through the java persistence layer which is based on the [Java Persistence API (JPA)](https://en.wikipedia.org/wiki/Jakarta_Persistence) implemented in [Hibernate](https://en.wikipedia.org/wiki/Hibernate_(framework)).
+The main APIs, alarm and correlation processes such as Drools directly interact with this persistence layer.
 
-However it still remains useful in certain circumstances for users to be able to modify the database directly using SQL queries. 
+However it remains useful in certain circumstances for user processes to be able to modify the database directly using SQL queries. 
 
 Two configurable daemons can use SQL queries in order to manipulate the tables during event processing. 
 * The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) can create a new event based on an incoming event enriched with data from the database.
@@ -31,18 +31,15 @@ Firstly, however, we will begin by examining the OpenNMS database.
 ## Viewing the OpenNMS database
 
 The [session4/minimal-minion-activemq](../session4/minimal-minion-activemq) docker compose project includes a docker image of the  [pgAdmin4](https://www.pgadmin.org/) Postgresql web maintenance tool.
-
 * https://github.com/pgadmin-org/pgadmin4
 * https://hub.docker.com/r/dpage/pgadmin4/
 
-To examine the database, you will need to start the project and wait for OpenNMS to start up.
+To examine the database, you will need to start the project and wait for OpenNMS to initialise.
 (If the database does not exist or has been deleted, OpenNMS will recreate the `opennms` database in Postgresql before starting up).
 
 ```
 cd minimal-minion-activemq
-
 docker compose up -d
-
 ```
 
 Once the database is created, you can view it on the pgAdmin4 database viewer at http://localhost:8888/
@@ -52,7 +49,7 @@ Once the database is created, you can view it on the pgAdmin4 database viewer at
 
 Once logged into pgAdmin4, select the `servers` tree entry.
 
-You will be asked to enter the password for the user `postgres` to connect to the server - `database`
+You will be asked to enter the password for the user `postgres` to connect to the server `database`
 * user: postgres
 * password:  postgres
 
@@ -60,7 +57,7 @@ Then under `databases` you will see the database `opennms` if it has been create
 
 Under `opennms` you will see an entry `schemas` and under that you will see `tables` where all 115 or so OpenNMS tables are listed.
 
-In the top bar, under `tools` you can select the `Query Tool` which will allow you to enter queries.
+In the top bar of pgAdmin4, under `tools` you can select the `Query Tool` which will allow you to enter queries.
 
 The following diagram shows the query tool open.
 
@@ -106,7 +103,7 @@ You can browse through the other entities and matching tables but for our purpos
 
 Spend a little time browsing the entity objects and seeing how they relate to the database.
 
-## Event Translator
+## Event Translator ( example with linkUp linkDown events )
 
 Often, not all of the information required to provide useful reporting is in a given trap and so the event presented to the user needs enriched from additional data sources.
 The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) is a tool which can create a new event from an existing event which is enriched with data from the database.
@@ -124,7 +121,6 @@ OpenNMS regularly scans the IF table of a device and will already have the addit
 You will see from the following mib browser walk if the trap has given us the ifIndex oid, we can find the other information from the SNMP interface table previously read by OpenNMS. 
 
 ![alt text](../session4/images/ifindex.png "Figure ifindex.png")
-
 
 The definition which turns an SNMP LinkDown trap into an event is in the file [etc/events/opennms.snmp.trap.translator.events.xml](../pristine-opennms-config-files/etc-pristine/events/opennms.snmp.trap.translator.events.xml).
 
@@ -228,6 +224,7 @@ The simplest mapping will create a duplicate of the original event including all
 ```
 
 The more complicated mapping will create a new  event `uei.opennms.org/translator/traps/SNMP_Link_Down` with all of its varbinds copied.
+This event needs to have thee extra parameters `ifDiscr`,`ifName` and `ifAlias`, which are not available in the original trap but which may be available in in the `snmpInterfaces` table of the OpenNMS database.
 
 The `snmpInterfaces` table is populated for a node if it has an SNMP agent which has successfully been read by OpenNMS.
 This table can contain useful additional information which is not in the original trap to identify the description, name and alias of the interface.

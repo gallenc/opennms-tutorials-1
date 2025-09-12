@@ -4,7 +4,7 @@
 
 This is the answer to [Exercise-4-1](../session4/Exercise-4-1.md)
 
-THe example below only shows translations for two of the events.
+The example below only shows translations for two of the events.
 
 You can see we are extracting the varbind parameter named `.1.3.6.1.4.1.52330.6.2.7.0`.
 There is no need for a regular expression because the name of the varbind never changes with the value it represents.
@@ -64,11 +64,12 @@ Firstly an event is generated corresponding to the `camera-controller` and a sec
 
 ![alt text](../session4/images/eventTransalatorEvents.png "Figure eventTransalatorEvents.png")
 
+## Extra challenge
 Unfortunately, there is no simple way to avoid creating the duplicate `camera-controller` events using this configuration.
 
 A solution to this problem would be to enhance the translation so that it creates an event with the uei's we used previously for the actual camera traps. 
 
-You would then add `<logmsg dest="donotpersist">` to the camera-controller trap definitions.
+You would then add `<logmsg dest="donotpersist">` to the camera-controller trap definitions and make them all `normal` severity.
 
 That way the camera-controller events would never be peristed or displayed but would change into events which apper to come from the cameras themselves.
 
