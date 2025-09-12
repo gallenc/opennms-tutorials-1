@@ -103,7 +103,7 @@ You can browse through the other entities and matching tables but for our purpos
 
 Spend a little time browsing the entity objects and seeing how they relate to the database.
 
-## Event Translator
+## Event Translator ( example with linkUp linkDown events )
 
 Often, not all of the information required to provide useful reporting is in a given trap and so the event presented to the user needs enriched from additional data sources.
 The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) is a tool which can create a new event from an existing event which is enriched with data from the database.
