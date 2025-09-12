@@ -13,10 +13,10 @@ In this session we will see how to enhance or modify events and alarms to provid
 
 OpenNMS uses [Postgresql](https://www.postgresql.org/) as the underlying database for storing it's dynamic configurations and processing alarms and events.
 
-Most access to the database in OpenNMS is performed through the java persistence layer which is based on the [Java Persistence API (JPA)](https://en.wikipedia.org/wiki/Jakarta_Persistence) implemented in [Hibernate](https://en.wikipedia.org/wiki/Hibernate_(framework).
-More recent alarm and correlation processes such as Drools use this persistence layer.
+Most access to the database in OpenNMS is performed through the java persistence layer which is based on the [Java Persistence API (JPA)](https://en.wikipedia.org/wiki/Jakarta_Persistence) implemented in [Hibernate](https://en.wikipedia.org/wiki/Hibernate_(framework)).
+The main APIs, alarm and correlation processes such as Drools directly interact with this persistence layer.
 
-However it still remains useful in certain circumstances for users to be able to modify the database directly using SQL queries. 
+However it remains useful in certain circumstances for user processes to be able to modify the database directly using SQL queries. 
 
 Two configurable daemons can use SQL queries in order to manipulate the tables during event processing. 
 * The [Event Translator](https://docs.opennms.com/horizon/33/operation/deep-dive/events/event-translator.html) can create a new event based on an incoming event enriched with data from the database.
