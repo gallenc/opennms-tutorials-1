@@ -64,14 +64,15 @@ Firstly an event is generated corresponding to the `camera-controller` and a sec
 
 ![alt text](../session4/images/eventTransalatorEvents.png "Figure eventTransalatorEvents.png")
 
+## Extra challenge
 Unfortunately, there is no simple way to avoid creating the duplicate `camera-controller` events using this configuration.
 
 A solution to this problem would be to enhance the translation so that it creates an event with the uei's we used previously for the actual camera traps. 
 
-You would then add `<logmsg dest="donotpersist">` to the camera-controller trap definitions.
+You would then add `<logmsg dest="donotpersist">` to the camera-controller trap definitions and make them all `normal` severity.
 
 That way the camera-controller events would never be peristed or displayed but would change into events which apper to come from the cameras themselves.
 
-I will leave it to you to work on thsi exercise if you wish.
+I will leave it to you to work on this exercise if you wish.
 
 
