@@ -31,18 +31,15 @@ Firstly, however, we will begin by examining the OpenNMS database.
 ## Viewing the OpenNMS database
 
 The [session4/minimal-minion-activemq](../session4/minimal-minion-activemq) docker compose project includes a docker image of the  [pgAdmin4](https://www.pgadmin.org/) Postgresql web maintenance tool.
-
 * https://github.com/pgadmin-org/pgadmin4
 * https://hub.docker.com/r/dpage/pgadmin4/
 
-To examine the database, you will need to start the project and wait for OpenNMS to start up.
+To examine the database, you will need to start the project and wait for OpenNMS to initialise.
 (If the database does not exist or has been deleted, OpenNMS will recreate the `opennms` database in Postgresql before starting up).
 
 ```
 cd minimal-minion-activemq
-
 docker compose up -d
-
 ```
 
 Once the database is created, you can view it on the pgAdmin4 database viewer at http://localhost:8888/
@@ -52,7 +49,7 @@ Once the database is created, you can view it on the pgAdmin4 database viewer at
 
 Once logged into pgAdmin4, select the `servers` tree entry.
 
-You will be asked to enter the password for the user `postgres` to connect to the server - `database`
+You will be asked to enter the password for the user `postgres` to connect to the server `database`
 * user: postgres
 * password:  postgres
 
@@ -60,7 +57,7 @@ Then under `databases` you will see the database `opennms` if it has been create
 
 Under `opennms` you will see an entry `schemas` and under that you will see `tables` where all 115 or so OpenNMS tables are listed.
 
-In the top bar, under `tools` you can select the `Query Tool` which will allow you to enter queries.
+In the top bar of pgAdmin4, under `tools` you can select the `Query Tool` which will allow you to enter queries.
 
 The following diagram shows the query tool open.
 
