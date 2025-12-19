@@ -13,3 +13,4 @@ RUN mkdir -p /custom-config && chown kuwaiba:kuwaiba /custom-config
 
 USER kuwaiba
 
+

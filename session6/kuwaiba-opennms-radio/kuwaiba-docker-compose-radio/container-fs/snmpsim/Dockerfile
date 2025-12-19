@@ -2,7 +2,7 @@ FROM tandrup/snmpsim:v0.4
 
 RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list ; \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
     snmp \
     iputils-ping \
     nano \

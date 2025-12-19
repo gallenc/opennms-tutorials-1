@@ -72,7 +72,7 @@ services:
     container_name: kuwaiba
     hostname: kuwaiba
     environment:
-       SPRING_CONFIG_ADDITIONAL-LOCATION : optional:file:./custom-config/
+       SPRING_CONFIG_ADDITIONAL-LOCATION : optional:file:/custom-config/
 
 #      SPRING_CONFIG_NAME : 
 #      SPRING_CONFIG_LOCATION : file:///Users/home/config
@@ -447,7 +447,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: DB9000RX
     hostname: DB9000RX
     environment:
@@ -467,7 +467,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: DB8008
     hostname: DB8008
     environment:
@@ -487,7 +487,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: DB7012
     hostname: DB7012
     environment:
@@ -507,7 +507,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: VIGOR2927-PRI
     hostname: VIGOR2927-PRI
     environment:
@@ -528,7 +528,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: VIGOR2927L-SEC
     hostname: VIGOR2927L-SEC
     environment:
@@ -549,7 +549,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: VIGOR2927L-VIRTUAL
     hostname: VIGOR2927L-VIRTUAL
     environment:
@@ -570,7 +570,7 @@ services:
     profiles: [opennms]
 #    image: ${DOCKER_REGISTRY:-docker.io}/tandrup/snmpsim:${SNMPSIM_VERSION:-v0.4}
     image: onms-training/snmpsim
-    build: ./container-fs/snmpsim/
+#    build: ./container-fs/snmpsim/
     container_name: cardinalImdu
     hostname: cardinalImdu
     environment:

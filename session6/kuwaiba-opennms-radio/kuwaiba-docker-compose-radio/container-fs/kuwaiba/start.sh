@@ -80,6 +80,6 @@ applyOverlayConfig
 
 echo "starting kuwiba"
 
-java -jar /opt/programs/kuwaiba_server_2.1.1-stable.jar 2>&1 | tee /data/logs/kuwaiba_$(date +%Y%m%d_%H%M%S).log
+java -jar  /opt/programs/kuwaiba_server_2.1.1-stable.jar 2>&1 | tee /data/logs/kuwaiba_$(date +%Y%m%d_%H%M%S).log
 
 
