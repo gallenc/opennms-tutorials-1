@@ -1,4 +1,4 @@
-FROM neotropic/kuwaiba:v2.1-nightly
+FROM neotropic/kuwaiba:v2.1.1
 
 USER root
 
