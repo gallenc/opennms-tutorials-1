@@ -9,7 +9,7 @@ RUN mkdir -p /data-archive  && chown kuwaiba:kuwaiba /data-archive
 RUN mkdir -p /data-zip  && chown kuwaiba:kuwaiba /data-zip
 RUN mkdir -p /data-overlay  && chown kuwaiba:kuwaiba /data-overlay
 RUN mkdir -p /exported-reports && chown kuwaiba:kuwaiba /exported-reports
-RUN mkdir -P /custom-config && chown kuwaiba:kuwaiba /custom-config
+RUN mkdir -p /custom-config && chown kuwaiba:kuwaiba /custom-config
 
 USER kuwaiba
 
