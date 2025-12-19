@@ -1,7 +1,7 @@
 
 [Main Menu](../README.md) | [Session 3](../session3/README.md)
 
-# Session 3
+# Session 3 OpenNMS Events And Alarms
 
 ## Session 3 Videos
 
